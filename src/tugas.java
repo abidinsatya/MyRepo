@@ -274,11 +274,15 @@ public class tugas {
         glVertex3f(-3.0f,-3.0f, 3.0f);      // Right Of Triangle (Left)
         glEnd();
                     
+<<<<<<< HEAD
         glTranslated(8.0f, 9.0f, -20.0f); // Translasi bulan (left/right side,top/bottom side,size)
         
         //glRotatef(rtri,0.0f,-1.0f,0.0f);
         renderSphere(-2f, -0.5f, -1f);
         glCallList(sphereId);
+=======
+        
+>>>>>>> f1e9f62dc216fa26ee2cbe454521852a86130f71
         
         glBegin(GL_POINTS);
         glVertex2d(-1.75, +1.75);
@@ -292,6 +296,7 @@ public class tugas {
         rtri+=2.1f;
   }    
     
+<<<<<<< HEAD
   private void renderSphere(float x, float y, float z) {
         Sphere sphere = new Sphere();
         sphere.setDrawStyle(GLU_FILL);
@@ -303,6 +308,9 @@ public class tugas {
         sphere.draw(1.0f, 70, 70);
         glEndList();
   } 
+=======
+ 
+>>>>>>> f1e9f62dc216fa26ee2cbe454521852a86130f71
   
   private static void input() {
         while (Keyboard.next()) {
