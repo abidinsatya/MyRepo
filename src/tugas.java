@@ -290,6 +290,7 @@ public class tugas {
         glEnd();
        
         rtri+=2.1f;
+<<<<<<< HEAD
   }    
     
   private void renderSphere(float x, float y, float z) {
@@ -303,6 +304,9 @@ public class tugas {
         sphere.draw(1.0f, 70, 70);
         glEndList();
   } 
+=======
+  }     
+>>>>>>> 0cacf131854cc540613eee847ff9b52f39ead23d
   
   private static void input() {
         while (Keyboard.next()) {
