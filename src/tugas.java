@@ -7,12 +7,11 @@
  *
  * @author KOLOT
  */
-import java.io.File;
-import java.io.FileInputStream;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
+import static org.lwjgl.opengl.GL20.glDeleteProgram;
+import static org.lwjgl.opengl.GL20.glUseProgram;
 
-import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -20,32 +19,35 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glUseProgram;
 import org.lwjgl.util.glu.Sphere;
-import java.io.IOException;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
+
 import utility.EulerCamera;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
+import java.nio.FloatBuffer;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
  
 public class tugas {
     private static final int[] WINDOW_DIMENSIONS = {800, 600};
     
     private static final float ASPECT_RATIO = (float) WINDOW_DIMENSIONS[0] / (float) WINDOW_DIMENSIONS[1];
-    private static final EulerCamera camera = new EulerCamera.Builder().setPosition(-5.5f, 2.2f,
-            -9.0f).setRotation(30, 40, 0).setAspectRatio(ASPECT_RATIO).setFieldOfView(60).build();
-    
+    private static final EulerCamera camera = new EulerCamera.Builder().setPosition(2.5f, 0.0f, //edit 2
+            8.5f).setRotation(0, 5, 0).setAspectRatio(ASPECT_RATIO).setFieldOfView(60).build(); //edit 2
     private float rtri;
-    private float zTranslation = -15f;
     private long lastTime;
     private int fps;
     private static boolean flatten = false;
     private static int shaderProgram;
     private static Texture wall;
+    private static Texture wall2;
     private static Texture moon;
     private static Texture sand;
+    private static int sphereId;
     
     //----------- Variables added for Lighting Test -----------//
     private FloatBuffer matSpecular;
@@ -53,8 +55,7 @@ public class tugas {
     private FloatBuffer whiteLight; 
     private FloatBuffer lModelAmbient;
     //----------- END: Variables added for Lighting Test -----------//
-        
-    
+           
     public static void main(String[] args) {
         tugas main = null;
         try {
@@ -69,9 +70,8 @@ public class tugas {
     }
     
     public tugas() {
-    //tambahkan inisiasi sesukanya
-    }
     
+    }
     
     public void create() throws LWJGLException {
         Display.setDisplayMode(new DisplayMode(WINDOW_DIMENSIONS[0],WINDOW_DIMENSIONS[1]));
@@ -83,10 +83,11 @@ public class tugas {
         resizeGL();
         
         try {
-            // Load the wood texture from "res/images/wood.png"
-            wall = TextureLoader.getTexture("PNG", new FileInputStream(new File("C:/res/wall.png")));
+            // Load the wood texture from "C:/res/moon.png"
+            wall = TextureLoader.getTexture("PNG", new FileInputStream(new File("C:/res/pyramid5.png")));
+            wall2 = TextureLoader.getTexture("PNG", new FileInputStream(new File("C:/res/pyramid4.png")));
             moon = TextureLoader.getTexture("PNG", new FileInputStream(new File("C:/res/moon.png")));
-            sand = TextureLoader.getTexture("PNG", new FileInputStream(new File("C:/res/sand.png")));
+            sand = TextureLoader.getTexture("PNG", new FileInputStream(new File("C:/res/sand3.png")));
         } catch (IOException e) {
             e.printStackTrace();
             Display.destroy();
@@ -124,13 +125,9 @@ public class tugas {
 	//glEnable(GL_COLOR_MATERIAL);								// enables opengl to use glColor3f to define material color
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);			// tell opengl glColor3f effects the ambient and diffuse properties of material
 	//----------- END: Variables & method calls added for Lighting Test -----------//
-        
-        
-        
+                
     }
-    
-    
-    
+       
         //------- Added for Lighting Test----------//
 	private void initLightArrays() {
 	matSpecular = BufferUtils.createFloatBuffer(4);
@@ -145,8 +142,7 @@ public class tugas {
 	lModelAmbient = BufferUtils.createFloatBuffer(4);
 	lModelAmbient.put(0.5f).put(0.5f).put(0.5f).put(1.0f).flip();
     }
-    
-        
+           
     public void resizeGL() {
         glViewport(0,0,WINDOW_DIMENSIONS[0],WINDOW_DIMENSIONS[1]);
         
@@ -154,14 +150,10 @@ public class tugas {
         glLoadIdentity();               // Reset The Projection Matrix 
 
         // Calculate The Aspect Ratio Of The Window 
-        gluPerspective(45.0f,(float)WINDOW_DIMENSIONS[0]/(float)WINDOW_DIMENSIONS[1],0.1f,100.0f); 
+        gluPerspective(45.0f,(float)WINDOW_DIMENSIONS[0]/(float)WINDOW_DIMENSIONS[1],0.1f,50.0f); 
         
-
         glMatrixMode(GL_MODELVIEW);     // Select The Modelview Matrix 
-        glLoadIdentity();               // Reset The Modelview Matrix
-        
-        
-        
+        glLoadIdentity();               // Reset The Modelview Matrix            
     }
     
     public void render() {
@@ -169,8 +161,21 @@ public class tugas {
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
         camera.applyTranslations();
-                
-        glTranslated(4.0f,-1.0f,-1.0f);      // Translasi piramid ke belakang
+        
+        glTranslated(4.0f,7.0f,-7.0f);
+        sand.bind();
+        glBegin(GL_QUADS);
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(-15.0F, -8.0F, -15.0f);
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-15.0F, -8.0F, 15.0f);
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(15.0F, -8.0F, 15.0f);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(15.0F, -8.0F, -15.0f);
+        glEnd();
+        
+        glTranslated(-2.0f,-6.0f,1.0f);      // Translasi piramid ke belakang
         wall.bind();
                 
         glBegin(GL_TRIANGLES);              // Start Drawing The Pyramid
@@ -203,8 +208,8 @@ public class tugas {
         glVertex3f(-2.0f,-2.0f, 2.0f);      // Right Of Triangle (Left)
         glEnd();                            // Done Drawing The Pyramid
         
-        glTranslated(4.0f,1.0f,-1.0f);      // Translasi piramid ke belakang
-        wall.bind();
+        glTranslated(4.0f,-1.0f,-1.0f);      // Translasi piramid ke belakang
+        wall2.bind();
                 
         glBegin(GL_TRIANGLES);              // Start Drawing The Pyramid
         glTexCoord2f(1.0f, 0.0f);          // Red
@@ -236,28 +241,40 @@ public class tugas {
         glVertex3f(-1.0f,-1.0f, 1.0f);      // Right Of Triangle (Left)
         glEnd();
         
-        //glTranslated(3.0f,5.0f,-5.0f);      // Translasi piramid ke belakang (left/right side,top/bottom side,size)
-        glTranslatef(2.0f, 5.0f, zTranslation);
-        moon.bind();
+        glTranslated(-1.0f,2.0f,-5.0f);      // Translasi piramid ke belakang
+        wall.bind();
+                
+        glBegin(GL_TRIANGLES);              // Start Drawing The Pyramid
+        glTexCoord2f(1.0f, 0.0f);          // Red
+        glVertex3f( 0.0f, 3.0f, 0.0f);      // Top Of Triangle (Front)
+        glTexCoord2f(0.0f, 0.0f);          // Green
+        glVertex3f(-3.0f,-3.0f, 3.0f);      // Left Of Triangle (Front)
+        glTexCoord2f(0.0f, 1.0f);          // Blue
+        glVertex3f( 3.0f,-3.0f, 3.0f);      // Right Of Triangle (Front)
         
-        //glColor3f(9.5f, 0.7f, 0.9f);
-        Sphere s = new Sphere();
-	s.draw(1.0f, 70, 70);
-        glTexCoord3f(1.0f, 0.0f, 1.0f);
-        glEnd();
+        glTexCoord2f(1.0f, 0.0f);          // Red
+        glVertex3f( 0.0f, 3.0f, 0.0f);      // Top Of Triangle (Right)
+        glTexCoord2f(0.0f, 0.0f);          // Blue
+        glVertex3f( 3.0f,-3.0f, 3.0f);      // Left Of Triangle (Right)
+        glTexCoord2f(0.0f, 1.0f);          // Green
+        glVertex3f( 3.0f,-3.0f, -3.0f);     // Right Of Triangle (Right)
         
-        sand.bind();
-        glBegin(GL_QUADS);
-        //glColor3f(2.0f,0.0f,5.0f);
-        glTexCoord3f(1.0f, 0.0f, 1.0f);
-        glVertex3f(-20.0F, -8.0F, -20.0F);
-        glTexCoord3f(0.0f, 0.0f, -1.0f);
-        glVertex3f(-20.0F, -8.0F, 20.0F);
-        glTexCoord3f(0.0f, 1.0f, 1.0f);
-        glVertex3f(20.0F, -8.0F, 20.0F);
-        glTexCoord3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(20.0F, -8.0F, -20.0F);
+        glTexCoord2f(1.0f, 0.0f);          // Red
+        glVertex3f( 0.0f, 3.0f, 0.0f);      // Top Of Triangle (Back)
+        glTexCoord2f(0.0f, 0.0f);          // Green
+        glVertex3f( 3.0f,-3.0f, -3.0f);     // Left Of Triangle (Back)
+        glTexCoord2f(0.0f, 1.0f);          // Blue
+        glVertex3f(-3.0f,-3.0f, -3.0f);     // Right Of Triangle (Back)
+
+        glTexCoord2f(1.0f, 0.0f);          // Red
+        glVertex3f( 0.0f, 3.0f, 0.0f);      // Top Of Triangle (Left)
+        glTexCoord2f(0.0f, 0.0f);          // Blue
+        glVertex3f(-3.0f,-3.0f,-3.0f);      // Left Of Triangle (Left)
+        glTexCoord2f(0.0f, 1.0f);          // Green
+        glVertex3f(-3.0f,-3.0f, 3.0f);      // Right Of Triangle (Left)
         glEnd();
+                    
+        
         
         glBegin(GL_POINTS);
         glVertex2d(-1.75, +1.75);
@@ -267,10 +284,11 @@ public class tugas {
         glVertex2d(-2.75, +2.75);
         glVertex2d(+2.75, -2.75);
         glEnd();
-        
-     
-  }  
+       
+        rtri+=2.1f;
+  }    
     
+ 
   
   private static void input() {
         while (Keyboard.next()) {
@@ -304,12 +322,12 @@ public class tugas {
         if (Mouse.isGrabbed()) {
             camera.processMouse(1, 80, -80);
         }
-        camera.processKeyboard(20, 1);
-    }  
+        camera.processKeyboard(25, 1);
+  }  
   
   private static void setUpMatrices() {
         camera.applyPerspectiveMatrix();
-    }
+  }
   
   private static void setUpStates() {
         camera.applyOptimalStates();
@@ -318,7 +336,7 @@ public class tugas {
         glEnable(GL_DEPTH_TEST);
         // Remove the back (bottom) faces of shapes for performance
         glEnable(GL_CULL_FACE);
-    }
+  }
   
   public void run() {
         while(!Display.isCloseRequested()) {
@@ -327,7 +345,7 @@ public class tugas {
                 render();
                 input();
                 setUpStates();
-                setUpMatrices();           
+                setUpMatrices();
             }
             else {
                 if(Display.isDirty()) {
@@ -342,8 +360,7 @@ public class tugas {
             Display.update();
             Display.sync(60); //fps --> 60
         }
-    }
-    
+    } 
   
     public void update() {
         updateFPS();
