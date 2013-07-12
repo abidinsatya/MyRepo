@@ -281,16 +281,42 @@ public class tugas {
         glCallList(sphereId);
         
         glBegin(GL_POINTS);
-        glVertex2d(-1.75, +1.75);
-        glVertex2d(+1.75, -1.75);
-        glVertex2d(-1.100, +1.100);
-        glVertex2d(+1.75, -1.75);
         glVertex2d(-2.75, +2.75);
-        glVertex2d(+2.75, -2.75);
-        glEnd();
+
+        glVertex2d(+3.75, -5.75);
+        glVertex2d(-4.75, +8.75);
+        glVertex2d(+5.75, +7.75);
+        glVertex2d(+2.75, +2.75);
+        glVertex2d(+1.25, +1.75);
+        glVertex2d(-7.75, +7.75);
+         glVertex2d(+7.75, -7.75);
+         glVertex2d(-8.75, +3.75);
+          glVertex2d(-10.75, +2.75);
+           glVertex2d(-15.75, +7.75);
+            glVertex2d(-20.75, +5.75);
+             glVertex2d(-18.75, +2.75);
+              glVertex2d(-30.75, +4.75);
+               glVertex2d(-28.75, +1.75);
+                glVertex2d(-25.75, +8.75);
+                glVertex2d(-25.75, -4.75);
+                glVertex2d(-32.75, -2.75);
+                glVertex2d(-30.75, -6.75);
+                glVertex2d(-25.75, -6.75);
+                glVertex2d(-15.75, -2.75);
+                glVertex2d(-20.75, -2.75);
+         glVertex2d(-22.75, +1.75);
+         glVertex2d(+22.75, +1.75);
+         glVertex2d(0.75, +4.75);
+         glVertex2d(0.25, +7.75);
+          glVertex2d(-8.75, -2.75);
+           glVertex2d(+8.75, -0.75);
+           glVertex2d(+15.75, -2.75);
+           glVertex2d(+20.75, +3.75);
+           glVertex2d(+16.75, +2.75);
+           glVertex2d(+20.75, -5.75);
+       glEnd();
        
         rtri+=2.1f;
-<<<<<<< HEAD
   }    
     
   private void renderSphere(float x, float y, float z) {
@@ -304,9 +330,6 @@ public class tugas {
         sphere.draw(1.0f, 70, 70);
         glEndList();
   } 
-=======
-  }     
->>>>>>> 0cacf131854cc540613eee847ff9b52f39ead23d
   
   private static void input() {
         while (Keyboard.next()) {
