@@ -280,14 +280,14 @@ public class tugas {
         renderSphere(-2f, -0.5f, -1f);
         glCallList(sphereId);
         
-        glBegin(GL_POINTS);
+         glBegin(GL_POINTS);
         glVertex2d(-2.75, +2.75);
 
         glVertex2d(+3.75, -5.75);
         glVertex2d(-4.75, +8.75);
         glVertex2d(+5.75, +7.75);
         glVertex2d(+2.75, +2.75);
-        glVertex2d(+1.25, +1.75);
+        glVertex2d(-1.25, +1.75);
         glVertex2d(-7.75, +7.75);
          glVertex2d(+7.75, -7.75);
          glVertex2d(-8.75, +3.75);
@@ -314,10 +314,81 @@ public class tugas {
            glVertex2d(+20.75, +3.75);
            glVertex2d(+16.75, +2.75);
            glVertex2d(+20.75, -5.75);
-       glEnd();
+           
+        glVertex2d(-10.75, +10.75);
+        glVertex2d(-10.75, -10.75);
+        glVertex2d(-15.10, -15.10);
+        glVertex2d(-1.75, -1.75);
+        glVertex2d(-2.75, -2.75);
+        glVertex2d(-3.75, -3.75);
+        
+        glVertex2d(-1.45, +3.75);
+        glVertex2d(-1.75, -1.75);
+        glVertex2d(-1.10, +1.10);
+        glVertex2d(-9.75, -1.75);
+        glVertex2d(-9.75, +9.75);
+        glVertex2d(+2.75, -2.75);
+        
+        glVertex2d(+1.75, +1.75);
+        glVertex2d(-1.75, -1.5);
+        glVertex2d(-1.10, +1.10);
+        glVertex2d(-17.5, -17.5);
+        glVertex2d(-3.75, +3.75);
+        glVertex2d(-3.75, -3.75);
+        
+        glVertex2d(+9.75, +1.75);
+        glVertex2d(+9.75, +9.75);
+        glVertex2d(-2.75, +2.75);
+        glVertex2d(-17.5, -17.5);
+        glVertex2d(+3.75, -3.75);
+        glVertex2d(-3.75, -3.75);
+        
+        glVertex2d(-17.5, -17.5);
+        glVertex2d(-3.75, +3.75);
+        glVertex2d(-9.75, +9.75);
+        glVertex2d(+2.75, -2.75);
+        glVertex2d(+9.75, +9.75);
+        glVertex2d(+2.75, -2.75);
+        
+        glVertex2d(+10.75, +10.75);
+        glVertex2d(-10.75, -10.75);
+        glVertex2d(-15.10, -15.10);
+        glVertex2d(+2.75, +2.75);
+        glVertex2d(+9.75, +9.75);
+        glVertex2d(+2.75, -2.75);
+        
+        glVertex2d(+17.5, 17.5);
+        glVertex2d(+3.75, +3.75);
+        glVertex2d(+3.75, +3.75);
+        glVertex2d(+17.5, +17.5);
+        glVertex2d(+3.75, +3.75);
+        glVertex2d(+9.75, +9.75);
+        
+        glVertex2d(+1.75, 1.75);
+        glVertex2d(+37.5, +37.5);
+        glVertex2d(+37.5, +37.5);
+        glVertex2d(+17.5, +17.5);
+        glVertex2d(+375, +375);
+        glVertex2d(+9.100, +9.100);
+        glVertex2d(-25.75, +8.75);
+                glVertex2d(-25.75, -4.75);
+                glVertex2d(-32.75, -2.75);
+                glVertex2d(-30.75, -6.75);
+                glVertex2d(-25.75, -6.75);
+                glVertex2d(-15.75, -2.75);
+                glVertex2d(-20.75, -2.75);
+                glVertex2d(-25.75, -6.75);
+                glVertex2d(-15.75, -2.75);
+                glVertex2d(-20.75, -2.75);
+                glVertex2d(-25.75, +8.75);
+                glVertex2d(-25.75, -4.75);
+                glVertex2d(-15.75, -2.75);
+                glVertex2d(-20.75, -2.75);
+        glEnd();
        
         rtri+=2.1f;
   }    
+    
     
   private void renderSphere(float x, float y, float z) {
         Sphere sphere = new Sphere();
